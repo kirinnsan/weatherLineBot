@@ -33,7 +33,7 @@ function handleEvent(event) {
     return Promise.resolve(null);
   }
 
-  var city = 'Itami-shi';
+  var city = 'itami';
   var url = 'http://api.openweathermap.org/data/2.5/forecast?q=' + city + ',jp&units=metric&APPID=' + config.WEATHER_API_KEY;
   let option = {
     url: url,

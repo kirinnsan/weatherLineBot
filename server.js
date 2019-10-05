@@ -49,7 +49,7 @@ function handleEvent(event) {
 
       let Week = new Array("（日）", "（月）", "（火）", "（水）", "（木）", "（金）", "（土）");
 
-      for (let i = 0; i <= 4; i++) {
+      for (let i = 0; i <= 12; i++) {
         let date = new Date(body.list[i].dt_txt);
         date.setHours(date.getHours() + 9);
         let month = date.getMonth() + 1;

@@ -57,8 +57,9 @@ function handleEvent(event) {
       let month = date.getMonth() + 1;
       let day = month + "月" + date.getDate() + "日" + Week[date.getDay()] + date.getHours() + "：00";
       let weather = body.list[0].weather[0].main;
+      let weatherIcon = body.list[0].weather[0].icon;
 
-      result = city + '\n' + day + '\n' + weather;
+      result = city + '\n' + day + '\n' + weather + '\n' + weatherIcon;
       // }
 
       console.log(result);

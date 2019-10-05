@@ -44,22 +44,20 @@ function handleEvent(event) {
   // 天気予報取得
   request.get(option, function (error, response, body) {
 
-    let city = body.city.name;
-
-    let result = '';
+    let result = body.city.name;
     if (!error && response.statusCode == 200) {
 
       let Week = new Array("（日）", "（月）", "（火）", "（水）", "（木）", "（金）", "（土）");
 
       // 1日分の天気データを取得(3時間毎のデータ)
-      for (let i = 0; i <= 3; i++) {
-        let date = new Date(body.list[0].dt_txt);
+      for (let i = 0; i <= 6; i++) {
+        let date = new Date(body.list[i].dt_txt);
         date.setHours(date.getHours() + 9);
         let month = date.getMonth() + 1;
         let day = month + "月" + date.getDate() + "日" + Week[date.getDay()] + date.getHours() + "：00";
         let weather = body.list[i].weather[0].main;
 
-        result += city + '\n' + day + '\n' + weather + '\n';
+        result += '\n' + day + '\n' + weather + '\n';
       }
 
       console.log(result);

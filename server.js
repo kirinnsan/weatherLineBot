@@ -21,7 +21,7 @@ app.post('/webhook', line.middleware(config), (req, res) => {
   Promise
     .all(req.body.events.map(handleEvent))
     .then((result) => res.json(result), (error) => {
-      console.log('rejectしました' + error);
+      console.log('エラー' + error);
     });
 });
 
@@ -51,16 +51,16 @@ function handleEvent(event) {
 
       let Week = new Array("（日）", "（月）", "（火）", "（水）", "（木）", "（金）", "（土）");
 
-      // for (let i = 0; i <= 8; i += 2) {
-      let date = new Date(body.list[0].dt_txt);
-      date.setHours(date.getHours() + 9);
-      let month = date.getMonth() + 1;
-      let day = month + "月" + date.getDate() + "日" + Week[date.getDay()] + date.getHours() + "：00";
-      let weather = body.list[0].weather[0].main;
-      let weatherIcon = body.list[0].weather[0].icon;
+      // 1日分の天気データを取得(3時間毎のデータ)
+      for (let i = 0; i <= 3; i++) {
+        let date = new Date(body.list[0].dt_txt);
+        date.setHours(date.getHours() + 9);
+        let month = date.getMonth() + 1;
+        let day = month + "月" + date.getDate() + "日" + Week[date.getDay()] + date.getHours() + "：00";
+        let weather = body.list[i].weather[0].main;
 
-      result = city + '\n' + day + '\n' + weather + '\n' + weatherIcon;
-      // }
+        result += city + '\n' + day + '\n' + weather + '\n';
+      }
 
       console.log(result);
     } else {
@@ -68,7 +68,7 @@ function handleEvent(event) {
     }
     return client.replyMessage(event.replyToken, {
       type: 'text',
-      text: result //実際に返信の言葉を入れる箇所
+      text: result // 返信メッセージ
     });
   });
 }

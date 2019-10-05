@@ -49,8 +49,7 @@ function handleEvent(event) {
 
       let Week = new Array("（日）", "（月）", "（火）", "（水）", "（木）", "（金）", "（土）");
 
-      // 1日分の天気データを取得(3時間毎のデータ)
-      for (let i = 0; i <= 6; i++) {
+      for (let i = 0; i <= 4; i++) {
         let date = new Date(body.list[i].dt_txt);
         date.setHours(date.getHours() + 9);
         let month = date.getMonth() + 1;
